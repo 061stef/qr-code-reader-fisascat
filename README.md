@@ -1,1 +1,2 @@
-This is a starter template for [Learn Next.js](https://nextjs.org/learn).
+# QR Code Reader
+ - Web App per la lettura del QR Code del congresso di Fisascat
