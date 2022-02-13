@@ -7,7 +7,7 @@ export default function Home() {
 
   if(!logged){
     return(
-      <div>Loading</div>
+      <a href="/reader" ><div >Loading</div></a>
     )
   }
   return (

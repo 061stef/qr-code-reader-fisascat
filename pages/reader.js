@@ -16,11 +16,11 @@ export default class Reader extends Component {
     handleScan = async (data) => {
         if (data) {
             this.setState({
-                result: data
+                value: data
             })
-            try{
+            try {
                 const response = await fetch(``)
-            }catch(err){
+            } catch (err) {
                 console.error(err);
             }
         }
@@ -34,10 +34,11 @@ export default class Reader extends Component {
         return (
             <div>
                 <QrReader
+                    facingMode='front'
                     delay={300}
                     onError={this.handleError}
                     onScan={this.handleScan}
-                    style={{ width:'50%'}}
+                    style={{ width: '50%' }}
                 />
                 <p>{this.state.value}</p>
             </div>
