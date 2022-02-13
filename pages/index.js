@@ -1,9 +1,10 @@
 import Head from 'next/head'
 import { useState } from 'react'
+import Login from '../components/Login/Login'
 
 export default function Home() {
 
-  const [logged, setLogged] = useState(null)
+  const [logged, setLogged] = useState(true)
 
   if(!logged){
     return(
@@ -17,7 +18,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       
-      {logged ? <div>logged</div> : <div>Not logged</div>}
+      <Login />
     </div>
   )
 }
