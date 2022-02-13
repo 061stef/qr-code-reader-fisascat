@@ -1,6 +1,16 @@
 import React, { Component } from 'react';
 import { ToastContainer, toast } from "react-toastify";
+import {apiCall, BASE_PATH} from '../../lib/utils'
 
+const toast_settings =  {
+    position: "top-center",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+}
 
 class Login extends Component {
     constructor(props) {
@@ -13,40 +23,35 @@ class Login extends Component {
     }
 
     async componentDidMount(){
-        toast.success('OK!', {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-        })
+        
     }
    
     async onSubmit(evt) {
         evt.preventDefault();
         try{
+            const auth = await apiCall(BASE_PATH + '/login', 'POST', {'Content-type': 'application/json'}, {username: this.state.email, password: this.state.password});
+            if(!auth.error){
+                toast.success('Accesso effettuato', toast_settings);
+                setTimeout(() => {
+                    this.props.callback
+                }, 1000);
+            }else{
+                toast.error('Credenziali errate!', toast_settings);
+            }
             
         }catch(e){
             consoler.error(e);
-            toast.error('Utente non esistente!', {
-                position: "top-center",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            });
+            toast.error('Credenziali errate!', toast_settings);
         }
     }
+
     onChange(evt){
         const { name, value } = evt.target;
         this.setState({
             [name]: value
         })
     }
+
     render() {
         return (
             <>
