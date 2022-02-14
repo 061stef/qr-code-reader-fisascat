@@ -39,7 +39,7 @@ export default class ReaderQr extends Component {
                     delay={300}
                     onError={this.handleError}
                     onScan={this.handleScan}
-                    style={{ width: '50%' }}
+                    style={{ width: '100%' }}
                 />
                 <p>{this.state.value}</p>
             </div>
