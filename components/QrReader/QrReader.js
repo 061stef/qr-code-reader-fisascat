@@ -20,7 +20,7 @@ export default class ReaderQr extends Component {
                 value: data
             })
             try {
-                const response = await apiCall()
+               await this.props.callback(data)
             } catch (err) {
                 console.error(err);
             }

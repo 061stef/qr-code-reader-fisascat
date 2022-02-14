@@ -29,11 +29,11 @@ class Login extends Component {
     async onSubmit(evt) {
         evt.preventDefault();
         try{
-            const auth = await apiCall(BASE_PATH + '/auth', 'POST', {'Content-type': 'application/json'}, {username: this.state.email, password: this.state.password});
+            const auth = await apiCall(BASE_PATH + '/auth', 'POST', {'Content-type': 'application/json'}, {email: this.state.email, password: this.state.password});
             if(!auth.error){
                 toast.success('Accesso effettuato', toast_settings);
                 setTimeout(() => {
-                    this.props.callback
+                    this.props.callback()
                 }, 1000);
             }else{
                 toast.error('Credenziali errate!', toast_settings);
