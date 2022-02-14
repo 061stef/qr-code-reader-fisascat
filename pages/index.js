@@ -24,7 +24,7 @@ export default function Home() {
         <title>XX Congresso - QrReader</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {!logged ? <Login callback={cb} /> : <ReaderQr />}
+      {logged ? <Login callback={cb} /> : <ReaderQr />}
     </div>
   )
 }
