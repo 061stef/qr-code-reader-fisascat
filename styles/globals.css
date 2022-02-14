@@ -1,0 +1,7 @@
+body{
+    font-family: "Roboto";
+    background-image: url('https://fisascat.it/bg-congresso-video.jpg');
+    background-size: cover;
+    text-align: center;
+}
+.img-logo{ margin: 15vh auto 0px }
