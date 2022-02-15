@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import dynamic from "next/dynamic";
 import { apiCall } from '../../lib/utils';
 const QrReader = dynamic(() => import("react-qr-reader"), { ssr: false });
+import styles from './qrReader.module.css'
 
 export default class ReaderQr extends Component {
 
@@ -23,6 +24,7 @@ export default class ReaderQr extends Component {
                await this.props.callback(data)
             } catch (err) {
                 console.error(err);
+                await this.props.callback(data);
             }
         }
     }
@@ -33,7 +35,7 @@ export default class ReaderQr extends Component {
 
     render() {
         return (
-            <div>
+            <div className={styles.container}>
                 <QrReader
                     facingMode='front'
                     delay={300}
