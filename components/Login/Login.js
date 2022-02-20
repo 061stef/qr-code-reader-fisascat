@@ -66,10 +66,10 @@ class Login extends Component {
                 <ToastContainer />
                 <form onSubmit={(e) => this.onSubmit(e)} className={styles.form}>
                     <label htmlFor='email'><small>Email</small>
-                        <input id="email" type="email" name="email" placeholder="E-mail" onChange={(e) => this.onChange(e)} />
+                        <input id="email" type="email" name="email" required placeholder="E-mail" onChange={(e) => this.onChange(e)} />
                     </label>
                     <label htmlFor="password"><small>Password</small>
-                        <input id="passwrod" type="password" name="password" placeholder="Password" onChange={(e) => this.onChange(e)} />
+                        <input id="passwrod" type="password" name="password" required placeholder="Password" onChange={(e) => this.onChange(e)} />
                     </label>
                     <button type="submit" disabled={this.state.loading} name="login">{!this.state.loading ? 'Login' : 'Attendi'}</button>
                    

@@ -2,16 +2,20 @@ import React, { Component } from 'react';
 import dynamic from "next/dynamic";
 import { apiCall } from '../../lib/utils';
 const QrReader = dynamic(() => import("react-qr-reader"), { ssr: false });
+import styles from './qrReader.module.css';
+import { FaCameraRetro } from 'react-icons/fa'
 
 export default class ReaderQr extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            value: null
+            value: null,
+            front: true
         }
         this.handleScan = this.handleScan.bind(this);
         this.handleError = this.handleError.bind(this);
+        this.switchCamera = this.switchCamera.bind(this);
     }
 
     handleScan = async (data) => {
@@ -20,9 +24,10 @@ export default class ReaderQr extends Component {
                 value: data
             })
             try {
-               await this.props.callback(data)
+                await this.props.callback(data)
             } catch (err) {
                 console.error(err);
+                await this.props.callback(data);
             }
         }
     }
@@ -31,16 +36,23 @@ export default class ReaderQr extends Component {
         console.error(err)
     }
 
+    switchCamera = () => {
+        this.setState({
+            front: !this.state.front
+        })
+    }
+
     render() {
         return (
-            <div>
+            <div className={styles.container}>
                 <QrReader
-                    facingMode='front'
+                    facingMode={this.state.front ? 'front' : 'rear'}
                     delay={300}
                     onError={this.handleError}
                     onScan={this.handleScan}
                     style={{ width: '100%' }}
                 />
+                <FaCameraRetro onClick={this.switchCamera} />
                 <p>{this.state.value}</p>
             </div>
         );

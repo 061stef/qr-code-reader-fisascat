@@ -1,0 +1,2 @@
+.modal{ display: grid; row-gap: 10px; margin: 5vh auto; width: 95%; max-width: 600px;  }
+.modal svg{ margin: 0 auto; }
