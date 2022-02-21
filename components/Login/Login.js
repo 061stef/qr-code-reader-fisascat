@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ToastContainer, toast } from "react-toastify";
-import { apiCall, BASE_PATH } from '../../lib/utils';
+import { apiCall, BASE_PATH, TOKEN_NAME } from '../../lib/utils';
 import styles from './login.module.css';
 
 const toast_settings = {
@@ -35,6 +35,9 @@ class Login extends Component {
             const auth = await apiCall(BASE_PATH + '/auth', 'POST', { 'Content-type': 'application/json' }, { email: this.state.email, password: this.state.password });
             if (!auth.error) {
                 toast.success('Accesso effettuato', toast_settings);
+                const token = auth.data?.token;
+                console.log(auth);
+                localStorage.setItem(TOKEN_NAME, token);
                 setTimeout(() => {
                     this.props.callback()
                     this.setState({loading: false})
@@ -47,7 +50,7 @@ class Login extends Component {
             
 
         } catch (e) {
-            consoler.error(e);
+            console.error(e);
             toast.error('Credenziali errate!', toast_settings);
             this.setState({loading: false})
         }

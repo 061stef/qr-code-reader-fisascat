@@ -46,7 +46,7 @@ export default class ReaderQr extends Component {
         return (
             <div className={styles.container}>
                 <QrReader
-                    facingMode={this.state.front ? 'front' : 'rear'}
+                    facingMode={this.state.front ? 'user' : 'environment'}
                     delay={300}
                     onError={this.handleError}
                     onScan={this.handleScan}
