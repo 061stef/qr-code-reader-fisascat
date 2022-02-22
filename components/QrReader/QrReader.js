@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import dynamic from "next/dynamic";
-import { apiCall } from '../../lib/utils';
+import { apiCall, BASE_PATH, TOKEN_NAME } from '../../lib/utils';
 const QrReader = dynamic(() => import("react-qr-reader"), { ssr: false });
 import styles from './qrReader.module.css';
-import { FaCameraRetro } from 'react-icons/fa'
+import { FaCamera, FaCameraRetro } from 'react-icons/fa'
 
 export default class ReaderQr extends Component {
 
@@ -11,7 +11,8 @@ export default class ReaderQr extends Component {
         super(props);
         this.state = {
             value: null,
-            front: true
+            front: true,
+            congressUser: []
         }
         this.handleScan = this.handleScan.bind(this);
         this.handleError = this.handleError.bind(this);
@@ -43,6 +44,7 @@ export default class ReaderQr extends Component {
     }
 
     render() {
+        const { logout } = this.props;
         return (
             <div className={styles.container}>
                 <QrReader
@@ -52,8 +54,10 @@ export default class ReaderQr extends Component {
                     onScan={this.handleScan}
                     style={{ width: '100%' }}
                 />
-                <FaCameraRetro onClick={this.switchCamera} />
-                <p>{this.state.value}</p>
+                <div className={styles.containerButton}>
+                    <div className={styles.button}> <img src={'/rotate-camera.svg'} onClick={this.switchCamera} /></div>
+                    <div className={styles.button} onClick={logout}>Logout</div>
+                </div>
             </div>
         );
     }

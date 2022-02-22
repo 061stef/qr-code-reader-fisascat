@@ -12,7 +12,7 @@ const setting = {
     ...base,
     width: '100px',
     height: '100vh',
-    
+
   })
 }
 
@@ -26,9 +26,7 @@ export default function Home() {
 
   useEffect(async () => {
     const token = localStorage.getItem(TOKEN_NAME);
-    console.log(token);
     const isLogged = await checkLogged(token)
-    console.log(isLogged);
     setLogged(isLogged);
     setLoader(false)
   })
@@ -40,29 +38,45 @@ export default function Home() {
   const resCb = async (object) => {
     console.log('object', object);
     const token = localStorage.getItem(TOKEN_NAME);
-    const data = object.split('§');
+    const data = object.split(',');
+    console.log('mydata', data);
+    
     const email = data[0];
     const regione = data[3];
     try {
-      const response = apiCall(`${BASE_PATH}/users`, 'POST', { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token }, { email: email, regione: regione});
-      if(!response.error){
-        setResponseStatus(200);
-        setRespMessage('OK'); 
-      }else{
+      const response = await apiCall(`${BASE_PATH}/users`, 'GET', { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token }, { email: email, regione: regione });
+      console.log('response_user', response);
+      if (!response.error) {
+        const congressUser = response.data?.users?.find(user => user.email === email);
+        console.log(congressUser);
+        if (congressUser) {
+          setResponseStatus(200);
+          setRespMessage('OK');
+        }else{
+          setResponseStatus(404);
+          setRespMessage('Not Found')
+        }
+
+      } else {
         setResponseStatus(404);
         setRespMessage('Not Found')
       }
-     
+
 
     } catch (err) {
       setResponseStatus(500);
-      setRespMessage(err); 
+      setRespMessage(err);
     }
     setShowResponse(true);
   }
 
   const closeResp = () => {
     setShowResponse(false);
+  }
+
+  const logout = () => {
+    localStorage.clear();
+    setLogged(false);
   }
 
   return (
@@ -77,7 +91,7 @@ export default function Home() {
           <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet"></link>
         </Head>
         <img src="https://fisascat.it/congresso-logo.png" className={'img-logo'} />
-        {!logged ? <Login callback={cb} /> : !showResponse ? <ReaderQr callback={resCb} /> : <ModalResponse callback={closeResp} status={responseStatus} message={responseMessage}  />}
+        {!logged ? <Login callback={cb} /> : !showResponse ? <ReaderQr callback={resCb} logout={logout} /> : <ModalResponse  callback={closeResp} status={responseStatus} message={responseMessage} />}
       </div>
     </LoadingOverlay >
   )

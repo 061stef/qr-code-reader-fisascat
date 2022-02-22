@@ -12,4 +12,5 @@ body{
 
 @media (max-width: 600px){
     body{ background-position: right; }
+    .img-logo{ margin: 5vh auto 0px}
 }

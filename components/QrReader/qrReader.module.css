@@ -1,1 +1,9 @@
 .container{ width: 100%; max-width: 500px; margin: 5vh auto; }
+.containerButton{ display: grid; grid-template-columns:1fr 1fr; column-gap: 10px; margin-top: 20px;}
+.button{display: flex; align-items: center; justify-content: center;border: none; cursor: pointer; border-radius:99px; font-family:'Roboto'; padding: 10px; background-color: #f5cc0d; color: #262626; font-weight: 700; font-size:16px; text-transform: uppercase; transition: all 0.3s}
+.button:hover{ box-shadow:inset 0px 0px 0px 100px rgba(0, 0, 0, 0.2)}
+.button img{ max-width:25px }
+
+@media (max-width: 500px){
+    .containerButton{ width:95%; margin: 10px auto }
+}
