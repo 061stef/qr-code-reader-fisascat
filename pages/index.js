@@ -75,6 +75,7 @@ export default function Home() {
   }
 
   const logout = () => {
+    
     localStorage.clear();
     setLogged(false);
   }
