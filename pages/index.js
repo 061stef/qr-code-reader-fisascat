@@ -41,7 +41,7 @@ export default function Home() {
     const data = object.split('§');
     console.log('mydata', data);
     const id = data[0];
-    const email = data[1];
+    const email = data[1].replace(' ', '+');
     const regione = data[2];
     //const regione = data[3];
     try {
@@ -51,9 +51,35 @@ export default function Home() {
         const congressUser = response.data?.users?.find(user => user?.email === email && user?.id === id);
         console.log(congressUser);
         if (congressUser) {
-          setResponseStatus(200);
-          setRespMessage('OK');
-        }else{
+          if (congressUser.check_in && congressUser.check_in === true) {
+            setResponseStatus(300);
+            setRespMessage('Questo utente ha già effettuato il check-in alle ore ' + congressUser.check_in_data);
+          } else {
+            try {
+              const option = {
+                method: 'PUT',
+                headers: {
+                  'Content-type': 'application/json',
+                  'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ check_in: true, check_in_data: new Date() })
+              }
+              const update_response = await fetch(`${BASE_PATH}/users/${id}`);
+              if (update_response.status === 200) {
+                setResponseStatus(200);
+                setRespMessage('OK');
+                return
+              }
+              setResponseStatus(400);
+                setRespMessage('OK');
+
+            } catch (err) {
+              console.error(err);
+            }
+
+          }
+
+        } else {
           setResponseStatus(404);
           setRespMessage('Questo utente non esiste');
         }
@@ -76,7 +102,7 @@ export default function Home() {
   }
 
   const logout = () => {
-    
+
     localStorage.clear();
     setLogged(false);
   }
@@ -93,7 +119,7 @@ export default function Home() {
           <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet"></link>
         </Head>
         <img src="https://fisascat.it/congresso-logo.png" className={'img-logo'} />
-        {!logged ? <Login callback={cb} /> : !showResponse ? <ReaderQr callback={resCb} logout={logout} /> : <ModalResponse  callback={closeResp} status={responseStatus} message={responseMessage} />}
+        {!logged ? <Login callback={cb} /> : !showResponse ? <ReaderQr callback={resCb} logout={logout} /> : <ModalResponse callback={closeResp} status={responseStatus} message={responseMessage} />}
       </div>
     </LoadingOverlay >
   )
