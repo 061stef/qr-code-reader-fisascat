@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body{
     font-family: "Roboto";
     background-image: url('https://fisascat.it/bg-congresso-video.jpg');

@@ -40,7 +40,7 @@ export default function Home() {
     const token = localStorage.getItem(TOKEN_NAME);
     const data = object.split(',');
     console.log('mydata', data);
-    
+
     const email = data[0];
     const regione = data[3];
     try {
@@ -52,7 +52,7 @@ export default function Home() {
         if (congressUser) {
           setResponseStatus(200);
           setRespMessage('OK');
-        }else{
+        } else {
           setResponseStatus(404);
           setRespMessage('Not Found')
         }
@@ -75,7 +75,7 @@ export default function Home() {
   }
 
   const logout = () => {
-    
+
     localStorage.clear();
     setLogged(false);
   }
@@ -92,7 +92,8 @@ export default function Home() {
           <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet"></link>
         </Head>
         <img src="https://fisascat.it/congresso-logo.png" className={'img-logo'} />
-        {!logged ? <Login callback={cb} /> : !showResponse ? <ReaderQr callback={resCb} logout={logout} /> : <ModalResponse  callback={closeResp} status={responseStatus} message={responseMessage} />}
+
+        {!logged ? <Login callback={cb} /> : !showResponse ? <ReaderQr callback={resCb} logout={logout} /> : <ModalResponse callback={closeResp} status={responseStatus} message={responseMessage} />}
       </div>
     </LoadingOverlay >
   )
