@@ -48,7 +48,7 @@ export default function Home() {
       const response = await apiCall(`${BASE_PATH}/users`, 'GET', { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token }, { email: email, id: id });
       console.log('response_user', response);
       if (!response.error) {
-        const congressUser = response.data?.users?.find(user => user?.email === email && user?.id === id);
+        const congressUser = response.data?.users?.find(user => user?.email === email && user?.id === id && user.region === regione);
         console.log(congressUser);
         if (congressUser) {
           if (congressUser.check_in && congressUser.check_in === true) {
@@ -64,15 +64,9 @@ export default function Home() {
                 },
                 body: JSON.stringify({ check_in: true, check_in_data: new Date() })
               }
-              /* const update_response = await fetch(`${BASE_PATH}/users/${id}`, option);
-              if (update_response.status === 200) { */
                 setResponseStatus(200);
                 setRespMessage('OK');
-                /* return */
-             /*  } */
-              /* setResponseStatus(400);
-                setRespMessage('OK'); */
-
+              
             } catch (err) {
               console.error(err);
             }
