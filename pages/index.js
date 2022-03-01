@@ -64,14 +64,14 @@ export default function Home() {
                 },
                 body: JSON.stringify({ check_in: true, check_in_data: new Date() })
               }
-              const update_response = await fetch(`${BASE_PATH}/users/${id}`, option);
-              if (update_response.status === 200) {
+              /* const update_response = await fetch(`${BASE_PATH}/users/${id}`, option);
+              if (update_response.status === 200) { */
                 setResponseStatus(200);
                 setRespMessage('OK');
-                return
-              }
-              setResponseStatus(400);
-                setRespMessage('OK');
+                /* return */
+             /*  } */
+              /* setResponseStatus(400);
+                setRespMessage('OK'); */
 
             } catch (err) {
               console.error(err);
