@@ -21,8 +21,8 @@ export default function Home() {
   const [logged, setLogged] = useState(false);
   const [showResponse, setShowResponse] = useState(false);
   const [loader, setLoader] = useState(true);
-  const [responseStatus, setResponseStatus] = useState(500);
-  const [responseMessage, setRespMessage] = useState('Delegato inesistente per questa regione');
+  const [responseStatus, setResponseStatus] = useState(300);
+  const [responseMessage, setRespMessage] = useState('Questo utente non esiste o non appartiene alla regione X');
 
   useEffect(async () => {
     const token = localStorage.getItem(TOKEN_NAME);
@@ -38,23 +38,24 @@ export default function Home() {
   const resCb = async (object) => {
     console.log('object', object);
     const token = localStorage.getItem(TOKEN_NAME);
-    const data = object.split(',');
+    const data = object.split('§');
     console.log('mydata', data);
-    
-    const email = data[0];
-    const regione = data[3];
+    const id = data[0];
+    const email = data[1];
+    const regione = data[2];
+    //const regione = data[3];
     try {
-      const response = await apiCall(`${BASE_PATH}/users`, 'GET', { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token }, { email: email, regione: regione });
+      const response = await apiCall(`${BASE_PATH}/users`, 'GET', { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token }, { email: email, id: id });
       console.log('response_user', response);
       if (!response.error) {
-        const congressUser = response.data?.users?.find(user => user.email === email);
+        const congressUser = response.data?.users?.find(user => user?.email === email && user?.id === id && user?.region?.toLowerCase() === regione);
         console.log(congressUser);
         if (congressUser) {
           setResponseStatus(200);
           setRespMessage('OK');
         }else{
           setResponseStatus(404);
-          setRespMessage('Not Found')
+          setRespMessage('Questo utente non esiste');
         }
 
       } else {
