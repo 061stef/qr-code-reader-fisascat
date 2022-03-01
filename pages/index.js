@@ -19,10 +19,10 @@ const setting = {
 export default function Home() {
 
   const [logged, setLogged] = useState(false);
-  const [showResponse, setShowResponse] = useState(false);
+  const [showResponse, setShowResponse] = useState(true);
   const [loader, setLoader] = useState(true);
-  const [responseStatus, setResponseStatus] = useState(300);
-  const [responseMessage, setRespMessage] = useState('Questo utente non esiste o non appartiene alla regione X');
+  const [responseStatus, setResponseStatus] = useState(404);
+  const [responseMessage, setRespMessage] = useState('Utente non Esistente');
 
   useEffect(async () => {
     const token = localStorage.getItem(TOKEN_NAME);
@@ -64,9 +64,9 @@ export default function Home() {
                 },
                 body: JSON.stringify({ check_in: true, check_in_data: new Date() })
               }
-                setResponseStatus(200);
-                setRespMessage('OK');
-              
+              setResponseStatus(200);
+              setRespMessage('OK');
+
             } catch (err) {
               console.error(err);
             }
@@ -111,6 +111,20 @@ export default function Home() {
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
           <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet"></link>
+          <link rel="apple-touch-icon" sizes="57x57" href="/favicon/apple-icon-57x57.png" />
+          <link rel="apple-touch-icon" sizes="60x60" href="/favicon/apple-icon-60x60.png" />
+          <link rel="apple-touch-icon" sizes="72x72" href="/favicon/apple-icon-72x72.png" />
+          <link rel="apple-touch-icon" sizes="76x76" href="/favicon/apple-icon-76x76.png" />
+          <link rel="apple-touch-icon" sizes="114x114" href="/favicon/apple-icon-114x114.png" />
+          <link rel="apple-touch-icon" sizes="120x120" href="/favicon/apple-icon-120x120.png" />
+          <link rel="apple-touch-icon" sizes="144x144" href="/favicon/apple-icon-144x144.png" />
+          <link rel="apple-touch-icon" sizes="152x152" href="/favicon/apple-icon-152x152.png" />
+          <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-icon-180x180.png" />
+          <link rel="icon" type="image/png" sizes="192x192" href="/favicon/android-icon-192x192.png" />
+          <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png" />
+          <link rel="icon" type="image/png" sizes="96x96" href="/favicon/favicon-96x96.png" />
+          <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png" />
+          <link rel="manifest" href="/favicon/manifest.json" />
         </Head>
         <img src="https://fisascat.it/congresso-logo.png" className={'img-logo'} />
         {!logged ? <Login callback={cb} /> : !showResponse ? <ReaderQr callback={resCb} logout={logout} /> : <ModalResponse callback={closeResp} status={responseStatus} message={responseMessage} />}
