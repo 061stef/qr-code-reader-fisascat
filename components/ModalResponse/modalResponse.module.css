@@ -3,3 +3,7 @@
 .button{margin: 10px auto; color: #fff; display: flex; align-items: center;border: none; cursor: pointer; border-radius:99px; font-family:'Roboto'; padding: 10px; background-color: #f5cc0d; color: #262626; font-weight: 700; font-size:16px; text-transform: uppercase; transition: all 0.3s; width: 100%; max-width: 300px; justify-content: center;}
 .button svg{ margin: 0px 5px 0px 0px }
 .button:hover{ box-shadow:inset 0px 0px 0px 100px rgba(0,0,0,0.2)}
+
+@media(max-width: 500px){
+    .modal{ width: 90%; }
+}
