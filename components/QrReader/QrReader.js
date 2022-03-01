@@ -11,7 +11,7 @@ export default class ReaderQr extends Component {
         super(props);
         this.state = {
             value: null,
-            front: true,
+            front: false,
             congressUser: []
         }
         this.handleScan = this.handleScan.bind(this);

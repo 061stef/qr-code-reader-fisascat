@@ -7,11 +7,10 @@ body{
     background-image: url('https://fisascat.it/bg-congresso-video.jpg');
     background-size: cover;
     text-align: center;
-    height: 100vh;
+    min-height: 100vh;
     margin: 0px;
-    overflow: hidden;
 }
-.container{ height: 100vh; }
+.container{ min-height: 100vh; }
 .img-logo{ margin: 10vh auto 0px }
 
 @media (max-width: 600px){
