@@ -19,7 +19,7 @@ const setting = {
 export default function Home() {
 
   const [logged, setLogged] = useState(false);
-  const [showResponse, setShowResponse] = useState(true);
+  const [showResponse, setShowResponse] = useState(false);
   const [loader, setLoader] = useState(true);
   const [responseStatus, setResponseStatus] = useState(404);
   const [responseMessage, setRespMessage] = useState('Utente non Esistente');
